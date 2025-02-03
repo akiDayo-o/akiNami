@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動画一覧</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        video { width: 80%; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>動画一覧</h1>
+    <div id="video-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const container = document.getElementById("video-container");
+
+            try {
+                // video.json を読み込む
+                const response = await fetch("video.json");
+                const data = await response.json();
+
+                // 各動画をページに追加
+                data.videos.forEach(video => {
+                    const videoElement = document.createElement("video");
+                    videoElement.src = `src/video/${video}`;
+                    videoElement.controls = true;
+                    container.appendChild(videoElement);
+                });
+            } catch (error) {
+                console.error("動画リストの読み込みに失敗:", error);
+            }
+        });
+    </script>
+</body>
+</html>
